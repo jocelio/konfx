@@ -1,25 +1,42 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { DrawerItems } from 'react-navigation';
-import {Text, Image, StyleSheet} from "react-native";
+import {Text, Image, StyleSheet, Platform} from "react-native";
 import { Container, Content, Header, Body } from 'native-base'
-import Images from "../../assets/images";
+import { connect } from "react-redux";
 
-const customDrawerContent = (props) => (
-    <Container>
-        <Header style={styles.drawerHeader}>
-            <Body>
-            <Image
-                style={styles.drawerImage}
-                source={Images.profile} />
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Jocélio Lima</Text>
-            <Text style={{fontSize: 20}}>jocelio27@gmail.com</Text>
-            </Body>
-        </Header>
-        <Content>
-            <DrawerItems {...props} />
-        </Content>
-    </Container>
-);
+class CustomDrawerContent extends Component {
+
+    render(){
+
+        const {userInfo} = this.props
+        if(!userInfo) return null;
+        const {picture = ''} = userInfo
+        return (<Container>
+            <Header style={styles.drawerHeader}>
+                <Body>
+                <Image
+                    style={styles.drawerImage}
+                    source={{uri: picture }}/>
+                <Text style={{fontWeight: 'bold', fontSize: 20}}>{userInfo.nickname}</Text>
+                <Text style={{fontSize: 20}}>{userInfo.name}</Text>
+                </Body>
+            </Header>
+            <Content>
+                <DrawerItems {...this.props} />
+            </Content>
+        </Container>)
+    }
+
+}
+
+function mapStateToProps(state) {
+    return {
+        userInfo: state.loginReducer.userInfo
+    }
+}
+
+
+export default connect(mapStateToProps, null)(CustomDrawerContent)
 
 const styles = StyleSheet.create({
     container: {
@@ -34,8 +51,7 @@ const styles = StyleSheet.create({
     drawerImage: {
         height: 100,
         width: 100,
-        borderRadius: 75
+        borderRadius: Platform.OS === 'ios' ? 50 : 75,
     }
 })
 
-export default customDrawerContent;

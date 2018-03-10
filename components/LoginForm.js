@@ -50,14 +50,19 @@ class LoginForm extends Component {
     doLogin(){
         this.props.login({
             "username": this.state.user || 'jclls@hotmail.com',
-            "password": this.state.password || 'ZaMBqZ-KH1HmTE5'
+            "password": this.state.password || 'zgyMTNjYjI3Yzc5ZjA'
         }).then( r => {
-            console.log('DATA',r.payload.data)
-            if (r.payload.data && r.payload.data.access_token) {
-                onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
-            }else{
+            if (!r.payload.data || !r.payload.data.access_token) {
                 Alert.alert("Usuário ou senha incorretos.")
+                return;
             }
+            return this.props.userInfo(r.payload.data.access_token)
+        }).then( r => {
+
+            console.log('DATA',r.payload.data)
+
+            onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+
         }).catch( e => console.log(e))
     }
 
