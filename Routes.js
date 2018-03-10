@@ -25,7 +25,7 @@ const SignedIn = DrawerNavigator(
         }
     },
     {
-        initialRouteName:'Home',
+        initialRouteName:'First',
         drawerPosition:'left',
         drawerWidth: 300,
         contentOptions:{
