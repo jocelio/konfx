@@ -11,6 +11,7 @@ import { DATA_AVAILABLE } from "../actions/"
 let dataState = { data: [], loading:true };
 
 const dataReducer = (state = dataState, action) => {
+    console.log(action)
     switch (action.type) {
         case DATA_AVAILABLE:
             return {...state, data: action.data, loading:false }

@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {StyleSheet, View, TextInput, Text, Alert} from 'react-native'
 import { Button } from 'native-base'
 import { onSignIn } from "../auth/auth";
-import { login } from "../actions/login";
+import { login, userInfo } from "../actions/login";
 import { connect } from "react-redux";
 
 class LoginForm extends Component {
@@ -50,17 +50,17 @@ class LoginForm extends Component {
     doLogin(){
         this.props.login({
             "username": this.state.user || 'jclls@hotmail.com',
-            "password": this.state.password || 'Z'
+            "password": this.state.password || 'ZaMBqZ-KH1HmTE5'
         }).then( r => {
-            console.log(r.payload.data)
-            if (r.payload.data.access_token) {
-                this.props.navigation.navigate("SignedIn")
+            console.log('DATA',r.payload.data)
+            if (r.payload.data && r.payload.data.access_token) {
+                onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+            }else{
+                Alert.alert("Usuário ou senha incorretos.")
             }
-        })
-        //     .then(r =>
-        // ).catch( e => console.log(e))
-        // onSignIn()
+        }).catch( e => console.log(e))
     }
+
 }
 
 function mapStateToProps(state, props) {
@@ -71,7 +71,7 @@ function mapStateToProps(state, props) {
 }
 
 
-export default connect(mapStateToProps, { login })(LoginForm)
+export default connect(mapStateToProps, { login, userInfo })(LoginForm)
 
 
 const styles = StyleSheet.create({

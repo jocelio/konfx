@@ -2,7 +2,8 @@
  * Created by jocelio on 05/03/18.
  */
 import axios from 'axios';
-export const DO_LOGIN = 'DO_LOGIN';
+export const DO_LOGIN = 'DO_LOGIN'
+export const USER_INFO ='USER_INFO';
 
 
 
@@ -19,8 +20,8 @@ export const login = ({username, password}) => {
     }
  }
 
- export const userInfo = ( token ) => (
-        {type: DO_LOGIN,
+ export const userInfo = token => (
+        {type: USER_INFO,
         payload: axios.get('https://jocelio.auth0.com/userinfo', {
              headers: {
                Authorization: 'Bearer ' + token

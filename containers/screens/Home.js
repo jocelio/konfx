@@ -10,12 +10,11 @@ import MenuSettings from "../common/MenuSettings";
 import CustomHeader from '../common/CustomHeader'
 import {onSignOut} from "../../auth/auth";
 
-import * as Actions from '../../actions';
+import { getData } from '../../actions';
 
 class Home extends Component {
 
     static navigationOptions = MenuSettings({label:'Home',iconName:'home'});
-
 
     constructor(props) {
         super(props);
@@ -85,18 +84,14 @@ class Home extends Component {
 
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
     return {
         loading: state.dataReducer.loading,
         data: state.dataReducer.data
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, { getData })(Home)
 
 
 const styles = StyleSheet.create({
