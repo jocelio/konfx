@@ -48,6 +48,7 @@ class LoginForm extends Component {
     }
 
     doLogin(){
+
         this.props.login({
             "username": this.state.user || 'jclls@hotmail.com',
             "password": this.state.password || 'zgyMTNjYjI3Yzc5ZjA'
@@ -56,12 +57,13 @@ class LoginForm extends Component {
                 Alert.alert("Usuário ou senha incorretos.")
                 return;
             }
-            return this.props.userInfo(r.payload.data.access_token)
-        }).then( r => {
 
-            console.log('DATA',r.payload.data)
+            return r.payload.data.access_token;
+        }).then( token => {
+            return {promise: this.props.userInfo(token), token}
+        }).then( response => {
 
-            onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
+            onSignIn(response.token).then(() => this.props.navigation.navigate("SignedIn"))
 
         }).catch( e => console.log(e))
     }

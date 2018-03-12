@@ -2,7 +2,6 @@
  * Created by jocelio on 14/02/18.
  */
 import React, {Component} from "react";
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Text, View, ListView, ActivityIndicator, StyleSheet, Alert} from "react-native";
 import {Button, Container, Content} from 'native-base'

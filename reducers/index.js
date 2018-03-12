@@ -5,6 +5,7 @@
 import { combineReducers } from 'redux';
 
 import LoginReducer from './login'
+import StockReducer from './stock'
 
 import { DATA_AVAILABLE } from "../actions/"
 
@@ -24,7 +25,8 @@ const dataReducer = (state = dataState, action) => {
 const rootReducer = combineReducers({
     state: (state = {}) => state,
     dataReducer: dataReducer,
-    loginReducer: LoginReducer
+    loginReducer: LoginReducer,
+    stockReducer: StockReducer
 })
 
 export default rootReducer;

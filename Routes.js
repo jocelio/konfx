@@ -8,6 +8,7 @@ import SecondScreen from './containers/screens/SecondScreen'
 import AppLogin from './containers/screens/AppLogin'
 import Home from './containers/screens/Home'
 import CustomDrawerContent from './containers/common/CustomDrawerContent'
+import Stock from "./containers/screens/Stock";
 
 const SignedIn = DrawerNavigator(
     {
@@ -22,10 +23,15 @@ const SignedIn = DrawerNavigator(
         Second:{
             path:'/sent',
             screen: SecondScreen,
+        },
+        Stock:{
+            path:'/stock',
+            screen: Stock,
         }
+
     },
     {
-        initialRouteName:'Home',
+        initialRouteName:'Stock',
         drawerPosition:'left',
         drawerWidth: 300,
         contentOptions:{
